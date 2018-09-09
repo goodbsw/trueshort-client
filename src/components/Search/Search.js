@@ -6,7 +6,7 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      securities: [],
+      securities: [{ name: 's', ticker: 33333}, { name: 's111', ticker: 22333}],
       keyworld: "",
       listBoxShow: true
     }
@@ -64,7 +64,13 @@ class Search extends Component {
 
     return (
       <div className="search-1">
-        <input className="input" type="text" onChange={this.handleChange} value={this.state.keyworld}/>
+        <input
+          className="input"
+          type="text"
+          onChange={this.handleChange}
+          value={this.state.keyworld}
+          placeholder="종목명을 입력해주세요"
+        />
         {listBoxEl}
       </div>
     );
