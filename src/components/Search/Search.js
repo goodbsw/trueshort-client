@@ -6,7 +6,7 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      securities: [{ name: 's', ticker: 33333}, { name: 's111', ticker: 22333}],
+      securities: [{ name: 's', ticker: 33333, english_name: 'sdf'}, { name: '삼', ticker: 22333, english_name: 'englush'}],
       keyworld: "",
       listBoxShow: true
     }
