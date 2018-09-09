@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Rakkas');
 
+.detail-1 {
+    border: 1px solid black;
+    margin: 20px auto;
+    width: 500px;
+    padding: 20px;
+}
+
 .detail-1 p {
     font-family: 'Rakkas', cursive;
     font-size: 40px;
@@ -13,6 +20,7 @@
 .detail-1 img {
     height: 50px;
     width: 50px;
+    border: 1px solid #ddd;
 }
 
 #sEngName {

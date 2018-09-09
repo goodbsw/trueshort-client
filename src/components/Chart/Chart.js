@@ -8,7 +8,7 @@ class Chart extends Component {
         this.state = {
             chart: null,
             tabType: 'short',
-            chartName: ""
+            chartName: ''
         }
     }
 
@@ -68,7 +68,7 @@ class Chart extends Component {
         break;
     }
 
-    fetch('http://127.0.0.1:8080/'+api+'/' + security.id) 
+    fetch('http://127.0.0.1:8080/'+api+'/' + security.id + '?start_date=2018-01-01&end_date=2018-07-17') 
     .then(res => {
       return res.json();
     })
@@ -78,13 +78,13 @@ class Chart extends Component {
         data.forEach(function(item) {
             
             if(tabType === 'short') {
-                result1.push([ item.date, +item.trading_volume ])
+                result1.push([ item.date, +item.short_volume ])
             } else if(tabType === 'outstanding') {
-                result1.push([ item.date, +item.floating_shares ])
+                result1.push([ item.date, +item.loan_outstanding_shares ])
             } else if(tabType === 'days') {
-                result1.push([ item.date, +item.days_to_cover_in_amount ])
+                result1.push([ item.date, +item.days_to_cover_in_shares ])
             } else if(tabType === 'short-outstanding') {
-                result1.push([ item.date, +item.short_outstanding_percentage ])
+                result1.push([ item.date, +item.short_outstanding_shares ])
             }
 
             // console.log(tabType, typeof tabType)
@@ -108,11 +108,25 @@ class Chart extends Component {
   }
 
   renderChart() {
-    const { chartName } = this.state;
 
-    switch(chartName) {
+    const {tabType} = this.state;
+    let chartName = '';
+
+    switch(tabType) {
         case 'short':
-        this.setState ({chartName: '공매도 거래량' });
+        chartName= '공매도 거래량';
+        break;
+
+        case 'outstanding':
+        chartName= "대차 잔고량";
+        break;
+
+        case 'days':
+        chartName= '숏커버 소요일'
+        break;
+
+        case 'short-outstanding':
+        chartName= '공매도 잔고량'
         break;
     }
 
@@ -121,10 +135,7 @@ class Chart extends Component {
           type: 'spline'
       },
       title: {
-          text: this.state.chartName
-      },
-      subtitle: {
-          text: 'Irregular time data in Highcharts JS'
+          text: chartName
       },
       xAxis: {
           type: 'datetime',
@@ -159,12 +170,14 @@ class Chart extends Component {
   }
 
   render() {
+//tabtye
+
     return (
     <div className="tab">
-        <div onClick={() =>{this.clickTab('short')}}>공매도 거래량</div>
-        <div onClick={() =>{this.clickTab('outstanding')}}>대차 잔고량</div>
-        <div onClick={() =>{this.clickTab('days')}}>숏커버소요기간</div>
-        <div onClick={() =>{this.clickTab('short-outstanding')}}>공매도 잔고량</div>
+        <div className="on tab-item" onClick={() =>{this.clickTab('short')}}>공매도 거래량</div>
+        <div className="tab-item" onClick={() =>{this.clickTab('outstanding')}}>대차 잔고량</div>
+        <div className="tab-item" onClick={() =>{this.clickTab('days')}}>숏커버 소요일</div>
+        <div className="tab-item" onClick={() =>{this.clickTab('short-outstanding')}}>공매도 잔고량</div>
         <div id="chart-1">
         </div>
     </div>

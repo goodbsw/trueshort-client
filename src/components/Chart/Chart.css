@@ -1,0 +1,16 @@
+#chart-1 {
+  margin: 20px auto;
+  width: 700px;
+}
+
+.tab .on.tab-item {
+  background-color: rgb(223, 223, 217);
+  color: black;
+  text-decoration: underline;
+}
+
+.tab .tab-item:hover {
+  color: gray;
+  cursor: pointer;
+}
+
